@@ -1,3 +1,47 @@
 spring:
   application:
     name: dazimcapsule
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+    jpa:
+      hibernate:
+        ddl-auto: validate # Flyway를 사용하므로 validate나 none 권장
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+
+    # Flyway 설정
+    flyway:
+      enabled: true
+      locations: classpath:db/migration
+      baseline-on-migrate: true
+
+#    kafka:
+#      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+#      producer:
+#        # 메시지를 보낼 때 Key와 Value를 어떻게 직렬화할지 설정
+#        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#      consumer:
+#        # 메시지를 받을 때 설정
+#        group-id: capsule-group
+#        auto-offset-reset: earliest
+#        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#        value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+#      properties:
+#        # JSON 역직렬화 시 신뢰할 수 있는 패키지 지정
+#        spring.json.trusted.packages: "*"
+#        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+
+  # Swagger(springdoc) 설정
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui.html
+      groups-order: ASC
+      operations-sorter: method
+    api-docs:
+      path: /api-docs

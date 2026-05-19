@@ -28,6 +28,20 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+
+    // 1. Flyway
+    implementation 'org.springframework.boot:spring-boot-starter-flyway'
+    implementation 'org.flywaydb:flyway-database-postgresql'
+
+    // 2. Swagger (OpenAPI 3)
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.0' // 최신 버전 확인 권장
+
+    // 3. .env Library
+    implementation 'me.paulschwarz:spring-dotenv:5.0.1'
+
+    // 4. spring-kafka Library
+    //implementation 'org.springframework.kafka:spring-kafka'
+    //implementation 'com.fasterxml.jackson.core:jackson-databind'
 }
 
 tasks.named('test') {
