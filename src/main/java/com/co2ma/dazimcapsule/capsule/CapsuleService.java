@@ -16,11 +16,13 @@ public class CapsuleService {
         String name = capsuleRequestDTO.getName();
         String body = capsuleRequestDTO.getBody();
         String email = capsuleRequestDTO.getEmail();
+        String uniqueLink = capsuleRequestDTO.getUniqueLink();
         LocalDate expirationDate = capsuleRequestDTO.getExpirationDate();
         Capsule capsule = new Capsule().builder()
                 .name(name)
                 .body(body)
                 .email(email)
+                .uniqueLink(uniqueLink)
                 .expirationDate(expirationDate)
                 .build();
         capsuleRepository.save(capsule);
