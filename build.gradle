@@ -37,7 +37,8 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.0' // 최신 버전 확인 권장
 
     // 3. .env Library
-    implementation 'me.paulschwarz:spring-dotenv:5.0.1'
+    implementation 'me.paulschwarz:springboot4-dotenv:5.0.1'
+
 
     // 4. spring-kafka Library
     //implementation 'org.springframework.kafka:spring-kafka'
