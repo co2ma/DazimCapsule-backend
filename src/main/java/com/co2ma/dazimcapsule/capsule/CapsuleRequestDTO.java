@@ -15,6 +15,6 @@ public class CapsuleRequestDTO {
     @NotBlank @NotNull String name;
     @Email @NotBlank @NotNull String email;
     @NotBlank @NotNull String body;
-    String Link;
+    String uniqueLink;
     LocalDate expirationDate;
 }
