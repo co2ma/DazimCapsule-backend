@@ -12,11 +12,11 @@ public class CapsuleService {
         this.capsuleRepository = capsuleRepository;
     }
 
-    public void createCapsule(CapsuleDTO capsuleDTO) {
-        String name = capsuleDTO.name();
-        String body = capsuleDTO.body();
-        String email = capsuleDTO.email();
-        LocalDate expirationDate = capsuleDTO.expirationDate();
+    public void createCapsule(CapsuleRequestDTO capsuleRequestDTO) {
+        String name = capsuleRequestDTO.getName();
+        String body = capsuleRequestDTO.getBody();
+        String email = capsuleRequestDTO.getEmail();
+        LocalDate expirationDate = capsuleRequestDTO.getExpirationDate();
         Capsule capsule = new Capsule().builder()
                 .name(name)
                 .body(body)
