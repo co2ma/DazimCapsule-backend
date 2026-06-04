@@ -1,0 +1,1 @@
+ALTER TABLE capsule_link RENAME COLUMN isDone TO is_done;
