@@ -1,0 +1,1 @@
+ALTER TABLE capsule_link ADD COLUMN isDone BOOLEAN;
