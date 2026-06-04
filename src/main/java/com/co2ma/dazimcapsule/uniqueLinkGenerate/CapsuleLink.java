@@ -25,9 +25,12 @@ public class CapsuleLink {
     @OneToMany(mappedBy = "capsuleLink", cascade = CascadeType.ALL)
     private List<CapsuleEntry> capsuleEntries = new ArrayList<>();
 
+    private boolean isDone;
+
     @Builder
     public CapsuleLink(String uniqueLink, LocalDate expirationDate) {
         this.uniqueLink = uniqueLink;
         this.expirationDate = expirationDate;
+        this.isDone = false;
     }
 }
