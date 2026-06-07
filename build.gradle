@@ -39,8 +39,11 @@ dependencies {
     // 3. .env Library
     implementation 'me.paulschwarz:springboot4-dotenv:5.0.1'
 
+    // 4. Spring Batch + @Scheduled
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    implementation 'org.springframework.boot:spring-boot-starter-mail' // 이메일 발송
 
-    // 4. spring-kafka Library
+    // 4. spring-kafka Library - 사용 할 지 말지 모름
     //implementation 'org.springframework.kafka:spring-kafka'
     //implementation 'com.fasterxml.jackson.core:jackson-databind'
 }
