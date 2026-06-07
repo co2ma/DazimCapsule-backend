@@ -18,7 +18,6 @@ public class CapsuleEntryController {
     @Operation(summary = "링크 valid 검사", description = "링크가 유효한지 아닌지 반환 해줍니다.")
     @GetMapping("/{link}")
     public ResponseEntity<CapsuleEntry> getCapsule(@PathVariable("link") String link) {
-        // 아직 미완성 get 명령 확인만 완료
         if(capsuleEntryService.verifyCapsuleLink(link)){
             return ResponseEntity.ok().build();
         }

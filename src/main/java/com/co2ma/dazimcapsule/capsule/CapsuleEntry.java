@@ -36,4 +36,8 @@ public class CapsuleEntry {
         this.capsuleLink = capsuleLink;
         this.isProcessed = false;
     }
+
+    public void markAsProcessed() {
+        this.isProcessed = true;
+    }
 }

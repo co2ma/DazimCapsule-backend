@@ -5,6 +5,8 @@ import com.co2ma.dazimcapsule.uniqueLinkGenerate.CapsuleLinkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,5 +32,13 @@ public class CapsuleEntryService {
 
     public boolean verifyCapsuleLink(String link) {
         return capsuleLinkService.findByUniqueLink(link).isPresent()?true:false;
+    }
+
+    public List<CapsuleEntry> findByCapsuleLinkAndIsProcessed(CapsuleLink capsuleLink) {
+        return capsuleEntryRepository.findByCapsuleLinkAndIsProcessed(capsuleLink, false);
+    }
+
+    public void saveTrue(CapsuleEntry capsuleEntry) {
+        capsuleEntryRepository.save(capsuleEntry);
     }
 }
