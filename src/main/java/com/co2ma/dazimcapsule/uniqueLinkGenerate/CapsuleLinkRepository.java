@@ -10,5 +10,6 @@ import java.util.Optional;
 @Repository
 public interface CapsuleLinkRepository extends JpaRepository<CapsuleLink, Long> {
     Optional<CapsuleLink> findByUniqueLink(String uniqueLink);
-    List<LocalDate> findAllByExpirationDate(LocalDate expirationDate);
+
+    List<CapsuleLink> findByExpirationDateAndIsDone(LocalDate expirationDate, boolean isDone);
 }

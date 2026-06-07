@@ -33,4 +33,8 @@ public class CapsuleLink {
         this.expirationDate = expirationDate;
         this.isDone = false;
     }
+
+    public void markAsDone() {
+        this.isDone = true;
+    }
 }

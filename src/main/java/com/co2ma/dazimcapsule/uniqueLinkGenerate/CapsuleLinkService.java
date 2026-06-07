@@ -3,6 +3,7 @@ package com.co2ma.dazimcapsule.uniqueLinkGenerate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,12 @@ public class CapsuleLinkService {
         return capsuleLinkRepository.findByUniqueLink(uniqueLink);
     }
 
-    public List<CapsuleLink> findAllCapsuleLinks() {
-        return capsuleLinkRepository.findAll();
+    public List<CapsuleLink> findByExpirationDateAndIsDone(LocalDate expirationDate) {
+        return capsuleLinkRepository.findByExpirationDateAndIsDone(expirationDate, false);
     }
+
+    public void saveTrue(CapsuleLink capsuleLink) {
+        capsuleLinkRepository.save(capsuleLink);
+    }
+
 }
