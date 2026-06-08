@@ -15,6 +15,8 @@ java {
 
 repositories {
 	mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+
 }
 
 dependencies {
@@ -42,6 +44,11 @@ dependencies {
     // 4. Spring Batch + @Scheduled
     implementation 'org.springframework.boot:spring-boot-starter-batch'
     implementation 'org.springframework.boot:spring-boot-starter-mail' // 이메일 발송
+
+    // 5. spring AI
+    implementation platform("org.springframework.ai:spring-ai-bom:2.0.0-RC1")
+    implementation 'org.springframework.ai:spring-ai-starter-model-openai'
+
 
     // 4. spring-kafka Library - 사용 할 지 말지 모름
     //implementation 'org.springframework.kafka:spring-kafka'
