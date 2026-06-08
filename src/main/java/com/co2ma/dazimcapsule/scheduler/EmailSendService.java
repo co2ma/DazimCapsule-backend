@@ -1,5 +1,7 @@
 package com.co2ma.dazimcapsule.scheduler;
 
+import com.co2ma.dazimcapsule.ai.CapsuleSummaryDTO;
+import com.co2ma.dazimcapsule.ai.CapsuleSummaryService;
 import com.co2ma.dazimcapsule.capsule.CapsuleEntry;
 import com.co2ma.dazimcapsule.capsule.CapsuleEntryRepository;
 import com.co2ma.dazimcapsule.capsule.CapsuleEntryService;
@@ -19,27 +21,29 @@ public class EmailSendService {
 
     private final JavaMailSender mailSender;
     private final CapsuleEntryService capsuleEntryService;
+    private final CapsuleSummaryService capsuleSummaryService;
 
     @Value("${spring.mail.username}")
     private String from;
 
     public void emailProcess(List<CapsuleEntry> capsuleEntryList) throws MessagingException {
         String body = buildBody(capsuleEntryList);
+        CapsuleSummaryDTO res = capsuleSummaryService.analyze(capsuleEntryList);
         for(CapsuleEntry capsuleEntry : capsuleEntryList){
-            sendEmail(capsuleEntry.getEmail(), capsuleEntry.getName(), body);
+            sendEmail(capsuleEntry.getEmail(), capsuleEntry.getName(), body, res.getTitle(), res.getBody());
             capsuleEntry.markAsProcessed();
             capsuleEntryService.saveTrue(capsuleEntry);
         }
     }
 
-    private void sendEmail(String to, String name, String body) throws MessagingException {
+    private void sendEmail(String to, String name, String body, String resTitle, String resBody) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
         helper.setFrom(from);
         helper.setTo(to);
         helper.setSubject("[다짐 캡슐] 미래의 당신에게 편지가 도착했습니다");
-        helper.setText(buildHtml(name, body), true);
+        helper.setText(buildHtml(name, body, resTitle, resBody), true);
 
         mailSender.send(message);
     }
@@ -59,7 +63,7 @@ public class EmailSendService {
     }
 
     // 2. 개별 유저에게 보낼 최종 HTML (유저마다 호출)
-    private String buildHtml(String userName, String body) {
+    private String buildHtml(String userName, String body, String resTitle, String resBody) {
         return """
     <div style="background: linear-gradient(160deg, #1a1535, #2d1f4e, #4a2060, #7a3070); padding: 40px 20px; font-family: Arial, sans-serif;">
       <div style="max-width: 560px; margin: auto;">
@@ -84,9 +88,9 @@ public class EmailSendService {
           <p style="font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 0.08em; margin: 0 0 14px;">모두의 다짐</p>
           %s
           <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08);">
-            <p style="font-size: 11px; color: rgba(255,255,255,0.35); margin: 0 0 10px;">소제목 (추후 추가)</p>
+            <p style="font-size: 11px; color: rgba(255,255,255,0.35); margin: 0 0 10px;">%s</p>
             <div style="background: rgba(140,100,200,0.15); border: 1px solid rgba(140,100,200,0.25); border-radius: 12px; padding: 16px 18px;">
-              <p style="font-size: 13px; color: rgba(200,180,255,0.8); line-height: 1.8; margin: 0;">요약 본문 자리</p>
+              <p style="font-size: 13px; color: rgba(200,180,255,0.8); line-height: 1.8; margin: 0;">%s</p>
             </div>
           </div>
         </div>
@@ -94,6 +98,6 @@ public class EmailSendService {
         <p style="color: rgba(255,255,255,0.2); text-align: center; font-size: 11px; margin-top: 20px;">다짐캡슐 · 미래의 나에게 보내는 편지</p>
       </div>
     </div>
-""".formatted(userName, body);
+""".formatted(userName, body, resTitle, resBody);
     }
 }
